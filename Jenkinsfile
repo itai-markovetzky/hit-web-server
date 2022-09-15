@@ -42,7 +42,11 @@ pipeline {
                     {
                         bat "gradle clean test"
                     }
+                    try{
+                     // Trying the tests
                     junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
+                    } catch (error) {
+                    echo "Test Failed!"}
                 }
         }
     }
