@@ -37,6 +37,7 @@ pipeline {
                 {
                     bat "gradle clean test"
                 }
+
         }
         stage('Run Automation tests'){
                     steps {
@@ -44,9 +45,8 @@ pipeline {
                     dir("automation")
                     {
                         bat "gradle clean test"
-                        junit 'TEST-webApplicationTests.xml'
                     }
+                    junit 'TEST-webApplicationTests.xml'
                 }
-    }
-}
+        }
 }
