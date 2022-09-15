@@ -37,6 +37,7 @@ pipeline {
                 {
                     bat "gradle clean test"
                 }
+                junit 'TEST-webApplicationTests.xml'
         }
     }
 }
