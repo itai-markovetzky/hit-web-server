@@ -6,11 +6,11 @@ pipeline {
     }
     agent any
     stages {
-        //stage('Checkout') {
-           // steps {
-              //  git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
-           // }
-        //}
+        stage('Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
+            }
+        }
         stage('Build') {
             steps {
                 script {
@@ -37,8 +37,16 @@ pipeline {
                 {
                     bat "gradle clean test"
                 }
-                junit 'TEST-webApplicationTests.xml'
         }
+        stage('Run Automation tests'){
+                    steps {
+                    echo "Running the Tests!"
+                    dir("automation")
+                    {
+                        bat "gradle clean test"
+                        junit 'TEST-webApplicationTests.xml'
+                    }
+                }
     }
 }
 }
