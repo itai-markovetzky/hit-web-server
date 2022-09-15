@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     dockerImageName = "itay71700/hit-web-server:$BUILD_NUMBER"
-                    dockerImage = docker.build dockerImageName
+                    dockerImage = docker.build(dockerImageName,"./webServer/")
                 }
             }
         }
