@@ -42,7 +42,7 @@ pipeline {
                     {
                         bat "gradle clean test"
                     }
-                    junit 'automation/build/test-results/test/TEST-webApplicationTests.xml'
+                    junit skipMarkingBuildUnstable: true, 'automation/build/test-results/test/TEST-webApplicationTests.xml'
                 }
         }
     }
