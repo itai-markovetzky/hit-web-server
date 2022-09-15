@@ -42,7 +42,7 @@ pipeline {
                     {
                         bat "gradle clean test"
                     }
-                    junit '**/test-reports/test/*.xml'
+                    junit '**/test-reports/*.xml'
                 }
         }
     }
