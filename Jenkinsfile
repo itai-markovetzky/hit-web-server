@@ -31,9 +31,9 @@ pipeline {
         stage('Deploy to QA'){
             steps {
                 //bat "docker run -d -p 80:80"+"dockerImageName"
-                bat "docker run --name application-qa -d -p 80:80 $dockerImageName"
+                bat "docker run --name application-qa -d -p -rm 80:80 $dockerImageName"
                 echo "Running the tests!"
-                //bat "java webApplicationTests"
+                bat "gradle build"
         }
     }
 }
