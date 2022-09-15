@@ -49,4 +49,5 @@ pipeline {
                     junit 'TEST-webApplicationTests.xml'
                 }
         }
+    }
 }
