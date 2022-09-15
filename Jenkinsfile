@@ -6,11 +6,11 @@ pipeline {
     }
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
-            }
-        }
+        //stage('Checkout') {
+           // steps {
+              //  git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
+           // }
+        //}
         stage('Build') {
             steps {
                 script {
@@ -33,7 +33,7 @@ pipeline {
                 //bat "docker run -d -p 80:80"+"dockerImageName"
                 bat "docker run --name application-qa -d -p 80:80 $dockerImageName"
                 echo "Running the tests!"
-                bat "java webApplicationTests"
+                //bat "java webApplicationTests"
         }
     }
 }
