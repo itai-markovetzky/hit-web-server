@@ -35,7 +35,7 @@ pipeline {
                 echo "Running the tests!"
                 dir("automation")
                 {
-                    bat "gradle build"
+                    bat "gradle clean test"
                 }
         }
     }
