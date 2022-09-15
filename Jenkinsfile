@@ -41,8 +41,8 @@ pipeline {
                     dir("automation")
                     {
                         bat "gradle clean test"
-                        junit '**/build/test-reports/*.xml'
                     }
+                    junit '**/build/test-reports/*.xml'
                 }
         }
     }
