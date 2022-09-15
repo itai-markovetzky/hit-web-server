@@ -33,11 +33,7 @@ pipeline {
                 //bat "docker run -d -p 80:80"+"dockerImageName"
                 bat "docker run --rm --name application-qa -d -p  80:80 $dockerImageName"
                 echo "Running the tests!"
-                dir("automation")
-                {
-                    bat "gradle clean test"
                 }
-
         }
         stage('Run Automation tests'){
                     steps {
