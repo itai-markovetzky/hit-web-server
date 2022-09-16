@@ -4,7 +4,7 @@ pipeline {
         registryCredential = 'itay71700'
         dockerImage = ''
         gitTag = null
-        testPassFlag = true
+        testflag = "true"
     }
     agent any
     stages {
@@ -60,18 +60,18 @@ pipeline {
         post {
             unstable {
                 echo "Some of the tests failed therefore we're skipping deployment to production"
-                script {testPassFlag = false}
+                script {testflag = "false"}
             }
         }
     }
         stage("Deploy to Production") {
             when {
-                expression { gitTag =~ "([Vv].*)" && testPassFlag == true}
-            }
+                    expression { gitTag =~ "([Vv].*)" && testflag == 'true' }
+                }
             steps {
                 echo "Deploying to production"
                 sh "docker run --rm --name application-prod -d -p 8082:80 $dockerImageName"
-                echo "Deployed to production! we're live and running!!"
+                echo "Deployed to production! we're live and running!!!"
             }
         }
     }
