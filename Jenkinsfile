@@ -61,7 +61,7 @@ pipeline {
                 }
                 steps {
                     echo "Deploying to production"
-                    sh "docker run --rm --name application-prod -d -p  80:81 $dockerImageName"
+                    sh "docker run --rm --name application-prod -d -p  81:81 $dockerImageName"
                 }
                 }
             }
