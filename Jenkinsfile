@@ -4,6 +4,7 @@ pipeline {
         registryCredential = 'itay71700'
         dockerImage = ''
         gitTag = null
+        testPassFlag = false
     }
     agent any
     stages {
@@ -40,14 +41,13 @@ pipeline {
         }
         stage('Deploy to QA') {
             steps {
-                //bat "docker run -d -p 80:80"+"dockerImageName"
                 sh "docker run --rm --name application-qa -d -p  80:80 $dockerImageName"
                 echo "Deployed to QA!"
             }
         }
         stage('Run Automation tests') {
             steps {
-                catchError(message: "Tests has failed and therefore deployment to production is skipped", buildResult: "UNSTABLE", stageResult: "UNSTABLE") {
+                catchError(message: "Tests has failed and therefore deployment to production is skipped", buildResult: "SUCCESS", stageResult: "FAILURE") {
                     echo "Running the Tests!"
                     dir("automation")
                             {
@@ -55,11 +55,12 @@ pipeline {
                             }
                 }
                 junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
+                testPassFlag = true
             }
         }
         stage("Deploy to Production") {
             when {
-                expression { gitTag =~ "([Vv].*)"}
+                expression { gitTag =~ "([Vv].*)" && testPassFlag == true}
             }
             steps {
                 echo "Deploying to production"
