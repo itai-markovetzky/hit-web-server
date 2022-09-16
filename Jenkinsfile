@@ -61,8 +61,7 @@ pipeline {
         }
             stage("Deploy to Production") {
                 when {
-                    expression { gitTag =~ "([Vv].*)" }
-                    expression {buildResult != 'UNSTABLE'}
+                    expression { gitTag =~ "([Vv].*)" && buildResult != 'UNSTABLE'}
                 }
                 steps {
                     echo "Deploying to production"
