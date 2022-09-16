@@ -47,28 +47,28 @@ pipeline {
         }
         stage('Run Automation tests') {
             steps {
-                catchError(message:"Tests has failed and therefore deployment to production is skipped", buildResult:"UNSTABLE", stageResult: "UNSTABLE") {
+                catchError(message: "Tests has failed and therefore deployment to production is skipped", buildResult: "UNSTABLE", stageResult: "UNSTABLE") {
                     echo "Running the Tests!"
                     dir("automation")
                             {
                                 sh "gradle clean test"
                             }
                 }
-                    junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
-                    echo currentBuild.result
-                }
+                junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
+                echo currentBuild.result
             }
         }
-            stage("Deploy to Production") {
-                when {
-                    expression { gitTag =~ "([Vv].*)" && buildResult != "UNSTABLE"}
-                }
-                steps {
-                    echo "Deploying to production"
-                    sh "docker run --rm --name application-prod -d -p 8082:80 $dockerImageName"
-                    echo "Deployed to production! we're live and running!"
-                }
-                }
+        stage("Deploy to Production") {
+            when {
+                expression { gitTag =~ "([Vv].*)" && buildResult != "UNSTABLE" }
+            }
+            steps {
+                echo "Deploying to production"
+                sh "docker run --rm --name application-prod -d -p 8082:80 $dockerImageName"
+                echo "Deployed to production! we're live and running!"
+            }
+        }
+    }
             post{
                 always{
                     echo "Finished the CICD, thank you"
