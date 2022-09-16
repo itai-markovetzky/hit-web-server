@@ -60,7 +60,7 @@ pipeline {
         post {
             unstable {
                 echo "Some of the tests failed therefore we're skipping deployment to production"
-                testPassFlag = false
+                script {testPassFlag = false}
             }
         }
     }
