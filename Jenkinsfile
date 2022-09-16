@@ -62,8 +62,8 @@ pipeline {
                 steps {
                     echo "Deploying to production"
                     sh "docker run --rm --name application-prod -d -p 8082:80 $dockerImageName"
+                    echo "Deployed to production! we're live and running"
                 }
-                echo "Deployed to production! we're live and running"
                 }
             }
         }
