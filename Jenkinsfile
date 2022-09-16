@@ -11,7 +11,7 @@ pipeline {
             steps {
                 git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
                 script{
-                gitTag = bat(returnStdout: true, script: "git describe --tags --abbrev=0").trim()
+                gitTag = sh(returnStdout: true, script: "git describe --tags --abbrev=0").trim()
                 }
                 echo "The tag is : $gitTag"
             }
