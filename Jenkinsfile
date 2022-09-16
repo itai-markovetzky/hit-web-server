@@ -13,7 +13,10 @@ pipeline {
                 script{
                 gitTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
                 }
+                if(gitTag != NULL)
+                {
                 echo "The tag is : $gitTag"
+                }
             }
         }
         stage('Build') {
