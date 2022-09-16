@@ -74,6 +74,10 @@ pipeline {
                 }
                 failure{
                     echo "Skipped deployment to production because the tests failed!!!"
+                    dir("automation")
+                            {
+                                sh "docker rm -f application-qa"
+                            }
                 }
             }
 }
