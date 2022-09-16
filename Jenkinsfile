@@ -57,13 +57,13 @@ pipeline {
                 junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
 
             }
-        }
-        post{
+        post {
             unstable {
                 echo "Some of the tests failed therefore we're skipping deployment to production"
                 testPassFlag = false
             }
         }
+    }
         stage("Deploy to Production") {
             when {
                 expression { gitTag =~ "([Vv].*)" && testPassFlag == true}
