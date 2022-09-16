@@ -55,7 +55,6 @@ pipeline {
                             }
                 }
                 junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
-                echo currentBuild.result
             }
         }
         stage("Deploy to Production") {
