@@ -42,7 +42,7 @@ pipeline {
             steps {
                 //bat "docker run -d -p 80:80"+"dockerImageName"
                 sh "docker run --rm --name application-qa -d -p  80:80 $dockerImageName"
-                echo "Running the tests!!"
+                echo "Deployed to QA!"
             }
         }
         stage('Run Automation tests') {
