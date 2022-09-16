@@ -1,3 +1,4 @@
+def gitTag = null
 pipeline {
     environment {
         registry = "itay71700/hit-web-server"
@@ -10,7 +11,7 @@ pipeline {
             steps {
                 git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
                 script{
-                String gitTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
+                gitTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
                 }
                 echo "The tag is : $gitTag"
             }
