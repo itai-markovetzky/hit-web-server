@@ -76,6 +76,9 @@ pipeline {
                 failure{
                     echo "Skipped deployment to production because the tests failed."
                 }
+                success{
+                    echo "Everything went correctly we're live!"
+                }
             }
 }
 
