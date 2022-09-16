@@ -11,7 +11,7 @@ pipeline {
             steps {
                 git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
                 script{
-                gitTag = sh(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
+                gitTag = bat(returnStdout:  true, script: "git tag --sort=-creatordate | head -n 1").trim()
                 }
                 echo "The tag is : $gitTag"
             }
