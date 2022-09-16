@@ -55,7 +55,7 @@ pipeline {
                             }
                 }
                 junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
-                testPassFlag = true
+                script{testPassFlag = true}
             }
         }
         stage("Deploy to Production") {
