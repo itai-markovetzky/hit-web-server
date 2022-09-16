@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', credentialsId: 'git', url: 'git@github.com:Neophyte96/hit-web-server.git'
-                gitTag = sh(git tag --sort=-creatordate | head -n 1)
+                gitTag = bat "git tag --sort=-creatordate | head -n 1"
                 echo "The tag is : $gitTag"
             }
         }
