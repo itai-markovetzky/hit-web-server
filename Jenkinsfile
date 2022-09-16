@@ -47,17 +47,22 @@ pipeline {
         }
         stage('Run Automation tests') {
             steps {
-                echo "Running the Tests!"
-                dir("automation")
-                        {
-                            sh "gradle clean test"
-                        }
-                junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
+                catchError(message:"Tests has failed and therefore deployment to production is skipped", buildResult:"UNSTABLE", stageResult: "UNSTABLE") {
+                    echo "Running the Tests!"
+                    dir("automation")
+                            {
+                                sh "gradle clean test"
+                            }
+                }
+                    junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
+                    echo currentBuild.result
+                }
             }
         }
             stage("Deploy to Production") {
                 when {
                     expression { gitTag =~ "([Vv].*)" }
+                    expression {buildResult != 'UNSTABLE'}
                 }
                 steps {
                     echo "Deploying to production"
@@ -66,4 +71,12 @@ pipeline {
                 }
                 }
             }
-        }
+            post{
+                always{
+                    echo "Finished the CICD, thank you"
+                }
+                failure{
+                    echo "Skipped deployment to production because the tests failed."
+                }
+            }
+
