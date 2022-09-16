@@ -56,7 +56,9 @@ pipeline {
             }
         }
             stage("Deploy to Production") {
-                when { tag pattern: "v\\d+", comparator: "REGEXP"}
+                when {
+                    expression { gitTag =~ ("v\\d+") }
+                }
                 steps {
                     echo "Deploying to production"
                     sh "docker run --rm --name application-prod -d -p  80:80 $dockerImageName"
