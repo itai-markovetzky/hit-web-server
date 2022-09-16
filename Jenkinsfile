@@ -61,7 +61,7 @@ pipeline {
         }
             stage("Deploy to Production") {
                 when {
-                    expression { gitTag =~ "([Vv].*)"}
+                    expression { gitTag =~ "([Vv].*)" && buildResult != "UNSTABLE"}
                 }
                 steps {
                     echo "Deploying to production"
@@ -69,7 +69,6 @@ pipeline {
                     echo "Deployed to production! we're live and running!"
                 }
                 }
-            }
             post{
                 always{
                     echo "Finished the CICD, thank you"
@@ -78,4 +77,5 @@ pipeline {
                     echo "Skipped deployment to production because the tests failed."
                 }
             }
+}
 
