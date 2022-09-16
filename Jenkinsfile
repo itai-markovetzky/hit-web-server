@@ -54,6 +54,7 @@ pipeline {
                         }
                 junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
             }
+        }
             stage("Deploy to Production") {
                 when { tag pattern: "v\\d+", comparator: "REGEXP"}
                 steps {
@@ -63,4 +64,3 @@ pipeline {
                 }
             }
         }
-    }
