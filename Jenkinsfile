@@ -1,9 +1,9 @@
-def gitTag = null
 pipeline {
     environment {
         registry = "itay71700/hit-web-server"
         registryCredential = 'itay71700'
         dockerImage = ''
+        gitTag = null
     }
     agent any
     stages {
@@ -17,7 +17,10 @@ pipeline {
                 {
                 echo "The tag is : $gitTag"
                 }
+                else
+                {
                 echo "This build has no tag."
+                }
                 }
             }
         }
@@ -54,6 +57,11 @@ pipeline {
                     }
                     junit skipMarkingBuildUnstable: true, testResults: 'automation/build/test-results/test/TEST-webApplicationTests.xml'
                 }
+        //stage("Deploy to Production"){
+                //when{
+
+               // }
+            //}
         }
     }
 }
