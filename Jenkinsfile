@@ -57,7 +57,7 @@ pipeline {
         }
             stage("Deploy to Production") {
                 when {
-                    expression { gitTag =~ ("v\\d+") }
+                    expression { gitTag =~ "([Vv].*)" }
                 }
                 steps {
                     echo "Deploying to production"
