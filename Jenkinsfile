@@ -8,7 +8,7 @@ pipeline {
     }
     agent any
     options{
-        timeout(time:30, unit: 'MINUTES')
+        timeout(time:15, unit: 'MINUTES')
     }
     stages {
         stage('Checkout') {
@@ -43,9 +43,6 @@ pipeline {
                 }
                 echo "The push has been successfully finished."
             }
-            options{
-                timeout(time:5, unit: 'MINUTES')
-            }
         }
         stage('Deploy to QA') {
             steps {
@@ -55,9 +52,6 @@ pipeline {
                 sh "docker run --rm --name application-qa -d -p  80:80 $dockerImageName"
                 echo "Deployment to the QA has been successfully finished."
             }
-        }
-        options{
-            timeout(time:5, unit: 'MINUTES')
         }
         stage('Run Automation tests') {
             steps {
