@@ -41,6 +41,9 @@ pipeline {
         }
         stage('Deploy to QA') {
             steps {
+                echo "Closing previous container instances if exist:"
+                sh "docker rm -f application-qa"
+                echo "Deploying to QA container.."
                 sh "docker run --rm --name application-qa -d -p  80:80 $dockerImageName"
                 echo "Deployed to QA!"
             }
@@ -69,7 +72,10 @@ pipeline {
                     expression { gitTag =~ "([Vv].*)" && testflag == 'true' }
                 }
             steps {
+                echo "Closing previous container instances if exist:"
                 echo "Deploying to production"
+                sh "docker rm -f application-prod"
+                echo "Deploying to PROD.."
                 sh "docker run --rm --name application-prod -d -p 8082:80 $dockerImageName"
                 echo "Deployed to production! we're live and running!!!"
             }
