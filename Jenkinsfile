@@ -85,12 +85,8 @@ pipeline {
                 always{
                     echo "Finished the CICD, thank you"
                 }
-                failure{
-                    echo "Skipped deployment to production because the tests failed."
-                    dir("automation")
-                            {
-                                sh "docker rm -f application-qa"
-                            }
+                unstable{
+                    echo "Build was UNSTABLE: Skipped deployment to production because the tests failed."
                 }
             }
 }
