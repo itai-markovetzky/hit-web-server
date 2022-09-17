@@ -72,9 +72,6 @@ pipeline {
                 echo "Test results have been successfully published."
 
             }
-            options{
-                timeout(time:5, unit: 'MINUTES')
-            }
         post {
             unstable {
                 echo "Some of the tests failed therefore this build is set to UNSTABLE"
