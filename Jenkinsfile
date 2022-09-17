@@ -7,6 +7,9 @@ pipeline {
         testflag = "true"
     }
     agent any
+    options{
+        timeout(time:10, unit: 'MINUTES')
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -67,7 +70,7 @@ pipeline {
             }
         }
     }
-        stage("Deploy to Production") {
+        stage("Deploy to PRODUCTION") {
             when {
                     expression { gitTag =~ "([Vv].*)" && testflag == 'true' }
                 }
