@@ -31,7 +31,7 @@ pipeline {
                     dockerImageName = "itay71700/hit-web-server:$BUILD_NUMBER"
                     dockerImage = docker.build(dockerImageName, "./webServer/")
                 }
-                echo "The build has been successfully finished!."
+                echo "The build has been successfully finished."
             }
         }
         stage('Docker Push') {
