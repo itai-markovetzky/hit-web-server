@@ -80,7 +80,7 @@ if both of the above conditions are met, a new container will be made named **ap
 ![JUNIT result](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_nnL88igsvO.png)
 
 ### Unstable job (one or more of the tests failed)
-![UNSTABLE Job]([https://puu.sh/JlLS8/4bd85f2aac.png](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_pnOJqXs8dS.png))
+![UNSTABLE Job](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_pnOJqXs8dS.png)
 
 ### Stable job with a good tag
 
