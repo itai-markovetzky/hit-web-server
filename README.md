@@ -1,95 +1,98 @@
+# DevOps Final Project - Full CI/CD Process
 
-# DevOps Final Project - FULL CICD process
+This repository presents a comprehensive CI/CD pipeline for a web application.
 
-A full CICD process for a web application.
+## Table of Contents
+- [Tools Used](#tools-used)
+- [Overview](#overview)
+  - [Checkout Step](#checkout-step)
+  - [Build Docker Image](#build-docker-image)
+  - [Push Docker Image](#push-docker-image)
+  - [Deploy to QA](#deploy-to-qa)
+  - [Run Tests](#run-tests)
+  - [Deploy to Production](#deploy-to-production)
+- [Accessing Environments](#accessing-environments)
+- [Screenshots](#screenshots)
+  - [JUnit Plugin Test Results](#junit-plugin-test-results)
+  - [Unstable Job (One or More Tests Failed)](#unstable-job-one-or-more-tests-failed)
+  - [Stable Job with a Good Tag](#stable-job-with-a-good-tag)
+  - [Stable Job with a Bad Tag](#stable-job-with-a-bad-tag)
+- [Author](#Author)
 
-
-
-## Built with
+## Tools Used
 * Jenkins (Jenkins Pipeline)
 * Docker
-* Selenium (tests)
-* RestAssured (tests)
+* Selenium (for tests)
+* RestAssured (for tests)
 * Java
-## Description
 
+## Overview
 
-This job is a full CICD process, with 6 steps.
+This CI/CD process consists of 6 steps:
 
-    1. Checkout from the git repository.
-    2. Build the docker image.
-    3. Push the docker to the Docker hub.
-    4. Deploy to QA environment.
-    5. Running 2 tests with JUNIT and publishing results with JUNIT plugin.
-    6. Deploy to PRODUCTION if it's git tagged that is v* and passed all tests.
+1. **Checkout:** Pulls the latest changes from the Git repository, captures the associated tag, and prints it.
 
-The whole job is with time limit of 20 minutes.
-## Accessing Containers
+2. **Build Docker Image:** Creates a Docker image named **hit-web-server** and tags it with the Jenkins job number.
 
-In order to access to the **QA** Environment go to port **80**:
+3. **Push Docker Image:** Pushes the Docker image to Docker Hub.
 
-```http://localhost/80```
+4. **Deploy to QA:** Sets up a QA environment by running a Docker container named **application-qa** on port 80.
 
-In order to access to the **PRODUCTION** Environment go to port **8082**:
+5. **Run Tests:** Executes two types of tests - one with RestAssured, checking a GET request, and another Selenium test verifying the presence of a name on the web page. Test results are published using the JUnit Jenkins Plugin. If any test fails, the build is tagged as UNSTABLE.
 
-```http://localhost/8082```
+6. **Deploy to Production:** Deploys to production only if the Git tag matches the pattern v* and all tests pass. The production environment runs in a Docker container named **application-prod** on port 8082.
 
-(This was selected randomly just for the project)
-## Details about each step
+The entire pipeline has a time limit of 20 minutes.
 
-#### Checkout step
-_____
-Inside this step, we're automatically pulling the repo if there is any commit/push / merge to the main branch.
-also, we're taking the tag it was pushed with for the future steps and also printing it out.
+## Accessing Environments
 
-#### Building image
-_____
+- **QA Environment:** [http://localhost/80](http://localhost/80)
+- **Production Environment:** [http://localhost/8082](http://localhost/8082) 
 
-We're building the docker image with the job name (**hit-web-server**) and docker tagging it with the job number.
+## Step Details
 
-#### Pushing image
-_____
-We're pushing the image into the Docker.io repo, In this case specifically to mine.
+### Checkout Step
 
-#### Deploying to QA
-_____
-In order to demonstrate the QA environment we're creating a docker container with the name **application-qa** running with the current image at port **80**.
-we're also checking there is no previous instance of the container so the port can be free.
+Automatically pulls the latest changes from the main branch and captures the associated tag.
 
-#### Running tests
-_____
-Here we're running 2 tests:
+### Build Docker Image
 
-    1. with restassured that checks a GET and receives 200 back. 
-    2. Selenium test - Open the page app and verify my name is inside.
-after the tests we publish with JUNIT result with the JUNIT Jenkins Plugin, a screenshot will be shown later.
-If one or more of the tests fail, the build will be tagged as UNSTABLE.
+Builds the Docker image with the name **hit-web-server** and tags it with the job number.
 
-#### Deploying to Production
-_____
-In order to deploy to production we need to answer 2 conditions:
+### Push Docker Image
 
-    1. The git tag of the build needs to be v* (we check that using regex.)
-    2. All the tests need to pass.
-if both of the above conditions are met, a new container will be made named **application-prod** running with this good build at port **8082**.
+Pushes the Docker image to Docker Hub.
 
-#### Finish
+### Deploy to QA
+
+Creates a Docker container named **application-qa** running on port 80.
+
+### Run Tests
+
+Executes RestAssured and Selenium tests, publishing results with the JUnit Jenkins Plugin. If any test fails, the build is tagged as UNSTABLE.
+
+### Deploy to Production
+
+Deploys to production only if the Git tag matches v* and all tests pass. The production container is named **application-prod** and runs on port 8082.
 
 ## Screenshots
-### JUNIT Plugin test results
-![JUNIT result](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_nnL88igsvO.png)
 
-### Unstable job (one or more of the tests failed)
-![UNSTABLE Job](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_pnOJqXs8dS.png)
+### JUnit Plugin Test Results
+![JUnit Result](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_nnL88igsvO.png)
 
-### Stable job with a good tag
+### Unstable Job (One or More Tests Failed)
+![Unstable Job](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_pnOJqXs8dS.png)
 
-![STABLE Job](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_38nCY86exk.png)
+### Stable Job with a Good Tag
+![Stable Job](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_38nCY86exk.png)
 
-### Stable job with a bad tag
-![STABLE Job bad tag](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_Tp3omsr2G4.png)
+### Stable Job with a Bad Tag
+![Stable Job Bad Tag](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_Tp3omsr2G4.png)
 
+## Author
 
+This CI/CD pipeline was developed and is maintained by:
 
-#### Made by Itai Markovetzky
+- [Itai Markovetzky](https://github.com/itai-markovetzky)
 
+Feel free to reach out if you have any questions or feedback. Contributions are welcome!
