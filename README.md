@@ -1,7 +1,7 @@
 
 # DevOps Final Project - FULL CICD process
 
-A full CICD process for web application.
+A full CICD process for a web application.
 
 
 
@@ -23,7 +23,7 @@ This job is a full CICD process, with 6 steps.
     5. Running 2 tests with JUNIT and publishing results with JUNIT plugin.
     6. Deploy to PRODUCTION if it's git tagged that is v* and passed all tests.
 
-The whole job is with timelimit of 20 minutes.
+The whole job is with time limit of 20 minutes.
 ## Accessing Containers
 
 In order to access to the **QA** Environment go to port **80**:
@@ -39,8 +39,8 @@ In order to access to the **PRODUCTION** Environment go to port **8082**:
 
 #### Checkout step
 _____
-Inside this step we're automatically pulling the repo if there was any commit / push / merge to main branch.
-also we're taking the tag it was pushed with for the future steps and also printing it out.
+Inside this step, we're automatically pulling the repo if there is any commit/push / merge to the main branch.
+also, we're taking the tag it was pushed with for the future steps and also printing it out.
 
 #### Building image
 _____
@@ -49,7 +49,7 @@ We're building the docker image with the job name (**hit-web-server**) and docke
 
 #### Pushing image
 _____
-We're pushing the image into the Docker.io repo, In this case specificly to mine.
+We're pushing the image into the Docker.io repo, In this case specifically to mine.
 
 #### Deploying to QA
 _____
@@ -63,7 +63,7 @@ Here we're running 2 tests:
     1. with restassured that checks a GET and receives 200 back. 
     2. Selenium test - Open the page app and verify my name is inside.
 after the tests we publish with JUNIT result with the JUNIT Jenkins Plugin, a screenshot will be shown later.
-If one or more of the tests failed the build will be tagged as UNSTABLE.
+If one or more of the tests fail, the build will be tagged as UNSTABLE.
 
 #### Deploying to Production
 _____
@@ -71,23 +71,23 @@ In order to deploy to production we need to answer 2 conditions:
 
     1. The git tag of the build needs to be v* (we check that using regex.)
     2. All the tests need to pass.
-if both of the above conditions are made, a new contianer will be made named **application-prod** running with this good build at port **8082**.
+if both of the above conditions are met, a new container will be made named **application-prod** running with this good build at port **8082**.
 
 #### Finish
 
 ## Screenshots
 ### JUNIT Plugin test results
-![JUNIT result](https://puu.sh/JlLPB/d8174ab88d.png)
+![JUNIT result](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_nnL88igsvO.png)
 
 ### Unstable job (one or more of the tests failed)
-![UNSTABLE Job](https://puu.sh/JlLS8/4bd85f2aac.png)
+![UNSTABLE Job]([https://puu.sh/JlLS8/4bd85f2aac.png](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_pnOJqXs8dS.png))
 
-### Stable job with good tag
+### Stable job with a good tag
 
-![STABLE Job](https://puu.sh/JlLXm/54864612a3.png)
+![STABLE Job](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_38nCY86exk.png)
 
-### Stable job with bad tag
-![STABLE Job bad tag](https://puu.sh/JlM1b/e07c3fa8f1.png)
+### Stable job with a bad tag
+![STABLE Job bad tag](https://github.com/itai-markovetzky/hit-web-server/blob/main/Screenshots/brave_Tp3omsr2G4.png)
 
 
 
